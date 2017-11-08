@@ -17,7 +17,6 @@ public class FullscreenActivity extends AppCompatActivity implements View.OnClic
 
     private RevolutionAnimationView mAnimationView;
 
-    //private BackgroundSound backgroundSound = new BackgroundSound();
     MediaPlayer mediaPlayer;
 
     @Override
@@ -68,29 +67,4 @@ public class FullscreenActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    class BackgroundSound extends AsyncTask<Integer, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Integer... params) {
-            MediaPlayer mediaPlayer = null;
-
-            if (params[0] == 1) {
-
-                mediaPlayer = MediaPlayer.create(FullscreenActivity.this, R.raw.rodina_shostakovich);
-
-                mediaPlayer.setLooping(true);
-                mediaPlayer.setVolume(1.0f, 1.0f);
-                mediaPlayer.start();
-
-            } else if (params[0] == 2) {
-
-                if (mediaPlayer != null)
-                if (mediaPlayer.isPlaying()) {
-                    mediaPlayer.pause();
-                }
-            }
-
-            return null;
-        }
-    }
 }
