@@ -2,17 +2,11 @@ package io.github.ziginsider.revolutiondemo;
 
 
 import android.media.MediaPlayer;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import java.util.Random;
 
-/**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- */
 public class FullscreenActivity extends AppCompatActivity implements View.OnClickListener {
 
     private RevolutionAnimationView mAnimationView;
@@ -66,5 +60,4 @@ public class FullscreenActivity extends AppCompatActivity implements View.OnClic
                 break;
         }
     }
-
 }
