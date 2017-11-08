@@ -1,0 +1,84 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
+    tools:context="io.github.ziginsider.revolutiondemo.FullscreenActivity">
+
+    <!-- The primary full-screen view. This can be replaced with whatever view
+         is needed to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc. -->
+
+    <FrameLayout
+        android:id="@+id/animated_view_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        >
+
+        <io.github.ziginsider.revolutiondemo.RevolutionAnimationView
+            android:id="@+id/animated_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_alignParentTop="true"
+            />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Revolution!"
+            android:fontFamily="sans-serif-light"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Display2"
+            android:textColor="#66000000"
+
+            />
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="300dp"
+            android:layout_gravity="bottom|center"
+            android:background="@drawable/kremlin_part"
+            />
+
+        <LinearLayout
+            android:id="@+id/buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            >
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_pause"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Pause"
+                android:textColor="@color/white"
+                android:background="@color/colorX"
+                />
+
+            <android.support.v4.widget.Space
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_resume"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Resume"
+                android:textColor="@color/white"
+                android:background="@color/colorX"
+                />
+
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</RelativeLayout>
