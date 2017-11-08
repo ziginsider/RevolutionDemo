@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
@@ -18,7 +17,7 @@ import java.util.Random;
 
 public class RevolutionAnimationView extends View {
 
-    private static class Star {
+    private static class SerpMolot {
         private float x;
         private float y;
         private float scale;
@@ -35,7 +34,7 @@ public class RevolutionAnimationView extends View {
     public static final int BASE_SPEED_DP_PER_S = 200;
 
 
-    /** The minimum scale of a Star */
+    /** The minimum scale of a SerpMolot */
     public static final float SCALE_MIN_PART = 0.45f;
     /** How much of the scale that's based on randomness */
     public static final float SCALE_RANDOM_PART = 0.55f;
@@ -45,7 +44,7 @@ public class RevolutionAnimationView extends View {
     private static final float ALPHA_RANDOM_PART = 0.5f;
 
     private final Random mRnd = new Random(SEED);
-    private final Star[] mStars = new Star[COUNT];
+    private final SerpMolot[] mSerpMolots = new SerpMolot[COUNT];
 
     private TimeAnimator mTimeAnimator;
     private Drawable mDrawable;
@@ -75,28 +74,28 @@ public class RevolutionAnimationView extends View {
         mBaseSpeed = BASE_SPEED_DP_PER_S * getResources().getDisplayMetrics().density;
     }
 
-    private void initializeStar(Star star, int viewWidth, int viewHeight) {
+    private void initializeSerpMolot(SerpMolot serpMolot, int viewWidth, int viewHeight) {
         // Set the scale based on a min value and a random multiplier
-        star.scale = SCALE_MIN_PART + SCALE_RANDOM_PART * mRnd.nextFloat();
+        serpMolot.scale = SCALE_MIN_PART + SCALE_RANDOM_PART * mRnd.nextFloat();
 
         // Set X to a random value within the width of the view
-        star.x = viewWidth * mRnd.nextFloat();
+        serpMolot.x = viewWidth * mRnd.nextFloat();
 
         // Set Y - start at the bottom of the view
-        star.y = viewHeight;
+        serpMolot.y = viewHeight;
 
-        // The value Y is in the center of the star, add the size
+        // The value Y is in the center of the serpMolot, add the size
         // to make sure it starts outside of the view bound
-        star.y += star.scale * mBaseSize;
+        serpMolot.y += serpMolot.scale * mBaseSize;
 
-        //Add a random offset to create a small delay before the star appears again
-        star.y += viewHeight * mRnd.nextFloat() / 4f;
+        //Add a random offset to create a small delay before the serpMolot appears again
+        serpMolot.y += viewHeight * mRnd.nextFloat() / 4f;
 
-        // The alpha is determined by the scale of the star and a random multiplier
-        star.alpha = ALPHA_SCALE_PART * star.scale + ALPHA_RANDOM_PART * mRnd.nextFloat();
+        // The alpha is determined by the scale of the serpMolot and a random multiplier
+        serpMolot.alpha = ALPHA_SCALE_PART * serpMolot.scale + ALPHA_RANDOM_PART * mRnd.nextFloat();
 
-        // The bigger and the brighter star is faster
-        star.speed = mBaseSpeed * star.alpha * star.scale;
+        // The bigger and the brighter serpMolot is faster
+        serpMolot.speed = mBaseSpeed * serpMolot.alpha * serpMolot.scale;
     }
 
 
@@ -105,29 +104,29 @@ public class RevolutionAnimationView extends View {
         super.onDraw(canvas);
 
         final int viewHight = getHeight();
-        for( final Star star : mStars) {
-            // Ignore the star if it's outside of the view bounds
-            final float starSize = star.scale * mBaseSize;
-            if (star.y + starSize < 0 || star.y - starSize > viewHight) {
+        for( final SerpMolot serpMolot : mSerpMolots) {
+            // Ignore the serpMolot if it's outside of the view bounds
+            final float serpMolotSize = serpMolot.scale * mBaseSize;
+            if (serpMolot.y + serpMolotSize < 0 || serpMolot.y - serpMolotSize > viewHight) {
                 continue;
             }
 
             //Save the current canvas state
             final int save = canvas.save();
 
-            // Move the canvas to the center of the star
-            canvas.translate(star.x, star.y);
+            // Move the canvas to the center of the serpMolot
+            canvas.translate(serpMolot.x, serpMolot.y);
 
-            //Rotate the canvas based on how far the star has moved
-            final float progress = (star.y + starSize) / viewHight;
+            //Rotate the canvas based on how far the serpMolot has moved
+            final float progress = (serpMolot.y + serpMolotSize) / viewHight;
             canvas.rotate(360 * progress);
 
             //Prepare the size and alpha of the drawable
-            final int size = Math.round(starSize);
+            final int size = Math.round(serpMolotSize);
             mDrawable.setBounds(-size, -size, size, size);
-            mDrawable.setAlpha(Math.round(255 * star.alpha));
+            mDrawable.setAlpha(Math.round(255 * serpMolot.alpha));
 
-            // Draw the star to the canvas
+            // Draw the serpMolot to the canvas
             mDrawable.draw(canvas);
 
             // Restore the canvas to it's previous position and rotation
@@ -141,10 +140,10 @@ public class RevolutionAnimationView extends View {
 
         // The starting position is dependent on the size of the view,
         // which is why the model is initialized here, when the view is measured.
-        for (int i = 0; i < mStars.length; i++) {
-            final Star star = new Star();
-            initializeStar(star, w, h);
-            mStars[i] = star;
+        for (int i = 0; i < mSerpMolots.length; i++) {
+            final SerpMolot serpMolot = new SerpMolot();
+            initializeSerpMolot(serpMolot, w, h);
+            mSerpMolots[i] = serpMolot;
         }
     }
 
@@ -189,15 +188,15 @@ public class RevolutionAnimationView extends View {
         final int viewWidth = getWidth();
         final int viewHeight = getHeight();
 
-        for (final Star star : mStars) {
-            // Move the star based on the elapsed time and it's speed
-            star.y -= star.speed * deltaSeconds;
+        for (final SerpMolot serpMolot : mSerpMolots) {
+            // Move the serpMolot based on the elapsed time and it's speed
+            serpMolot.y -= serpMolot.speed * deltaSeconds;
 
-            // If the star is completely outside of the view bounds after
+            // If the serpMolot is completely outside of the view bounds after
             // updating it's position, recycle it.
-            final float size = star.scale * mBaseSize;
-            if (star.y + size < 0) {
-                initializeStar(star, viewWidth, viewHeight);
+            final float size = serpMolot.scale * mBaseSize;
+            if (serpMolot.y + size < 0) {
+                initializeSerpMolot(serpMolot, viewWidth, viewHeight);
             }
         }
     }
