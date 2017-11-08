@@ -2,4 +2,4 @@
 Animation example
 TimeAnimator example
 
-<img src="ziginsider.github.io/images/capture_revolution.png">
+<img alt="revolution view" src="/art/capture_revolution.png" />
